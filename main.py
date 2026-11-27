@@ -1,6 +1,8 @@
 import sys
 import pygame
 
+from player import Player
+
 def main():
     # Инициализация Pygame.
     pygame.init()
@@ -15,14 +17,22 @@ def main():
     clock = pygame.time.Clock()
     FPS = 60
     
+    all_sprites = pygame.sprite.Group()
+    player = Player(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+    all_sprites.add(player)
+    
     # Основной игровой цикл
     running = True
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+        
+        all_sprites.update()
                 
         screen.fill((30, 30, 30))
+        all_sprites.draw(screen)
+        
         pygame.display.flip()
         clock.tick(FPS)
         
