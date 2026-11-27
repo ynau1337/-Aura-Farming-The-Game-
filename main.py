@@ -18,6 +18,8 @@ def main():
     FPS = 60
     
     all_sprites = pygame.sprite.Group()
+    bullets_group = pygame.sprite.Group()
+    
     player = Player(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
     all_sprites.add(player)
     
@@ -28,10 +30,15 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
         
-        all_sprites.update()
+        player.update(bullets_group)
+        bullets_group.update()
                 
         screen.fill((30, 30, 30))
+        
         all_sprites.draw(screen)
+        bullets_group.draw(screen)
+        
+        player.draw_weapon(screen)
         
         pygame.display.flip()
         clock.tick(FPS)
